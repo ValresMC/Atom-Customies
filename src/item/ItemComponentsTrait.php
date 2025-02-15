@@ -24,7 +24,6 @@ use customiesdevs\customies\item\component\UseAnimationComponent;
 use customiesdevs\customies\item\component\UseDurationComponent;
 use customiesdevs\customies\item\component\WearableComponent;
 use customiesdevs\customies\util\NBT;
-use HighCore\items\tools\types\HSword;
 use pocketmine\entity\Consumable;
 use pocketmine\inventory\ArmorInventory;
 use pocketmine\item\Armor;
@@ -34,8 +33,8 @@ use pocketmine\item\ProjectileItem;
 use pocketmine\item\Tool;
 use pocketmine\nbt\tag\CompoundTag;
 
-trait ItemComponentsTrait {
-
+trait ItemComponentsTrait
+{
 	/** @var ItemComponent[] */
 	private array $components;
 
@@ -87,10 +86,6 @@ trait ItemComponentsTrait {
 
         if($this instanceof Tool) {
             $this->addComponent(new DamageComponent($this->getTier()->getBaseAttackPoints()));
-        }
-
-        if($this instanceof HSword){
-            $this->addComponent(new DamageComponent($this->getAttackPoints()));
         }
 
 		if($this instanceof Consumable) {
