@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace customiesdevs\customies\item;
 
-use customiesdevs\customies\block\BlockComponents;
 use customiesdevs\customies\block\BlockComponentsTrait;
-use customiesdevs\customies\block\component\BlockComponent;
 use InvalidArgumentException;
 use pocketmine\block\Block;
 use pocketmine\data\bedrock\item\BlockItemIdMap;
@@ -15,10 +13,8 @@ use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\ItemTypeIds;
 use pocketmine\item\StringToItemParser;
-use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\convert\TypeConverter;
 use pocketmine\network\mcpe\protocol\types\CacheableNbt;
-use pocketmine\network\mcpe\protocol\types\ItemComponentPacketEntry;
 use pocketmine\network\mcpe\protocol\types\ItemTypeEntry;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\Utils;
@@ -69,7 +65,7 @@ final class CustomiesItemFactory
                 ->setString("name", $identifier))
         );
 
-		CreativeInventory::getInstance()->add($item, 0); // TODO: Je sais pas comment marche les groupIds ???
+		CreativeInventory::getInstance()->add($item);
 	}
 
 	private function registerCustomItemMapping(string $identifier, int $itemId): void {
@@ -107,5 +103,7 @@ final class CustomiesItemFactory
 		/** @var string[] $value */
 		$value = $itemToBlockId->getValue($blockItemIdMap);
 		$itemToBlockId->setValue($blockItemIdMap, $value + [$identifier => $identifier]);
+
+        CreativeInventory::getInstance()->add($block->asItem());
 	}
 }
